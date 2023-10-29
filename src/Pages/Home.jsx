@@ -1,5 +1,5 @@
 import { Grid, Tab, Tabs } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, fetchTags } from "../redux/slices/posts";
 import { CommentsBlock, Post, TagsBlock } from "../components";
@@ -15,10 +15,10 @@ const Home = () => {
   const postsLoading = postStatus === "loading";
   const tagsLoading = tagStatus === "loading";
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchTags());
-  }, []);
+  },[]);
 
   return (
     <>
