@@ -1,58 +1,58 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import axios from "../../axios";
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const { data } = axios.get("/posts");
+  const { data } = await axios.get("/posts");
   return data;
 });
 
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
-  const { data } = axios.get("/tags");
+  const { data } = await axios.get("/posts/tags");
   return data;
 });
 
 const initialState = {
-  posts: {
-    items: [],
-    status: "loading",
-  },
-  tags: {
-    items: [],
-    status: "loading",
-  },
+  posts: [],
+  tags: [],
+  postStatus: "loading",
+  tagStatus: "loading",
 };
 
-const postSlice = createSlice({
+const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    removePost: (state, action) => {
+      state.posts = state.posts.filter((obj) => obj._id !== action.payload);
+    },
+  },
   extraReducers: {
-    [fetchPosts.pending]: (state) => {
-      state.posts.items = [];
-      state.posts.status = "loading";
-    },
     [fetchPosts.fulfilled]: (state, action) => {
-      state.posts.items = action.payload;
-      state.posts.status = "loaded";
+      state.posts = action.payload;
+      state.postStatus = "loaded";
     },
-    [fetchPosts.rejected]: (state) => {
-      state.posts.items = [];
-      state.posts.status = "error";
+    [fetchPosts.pending]: (state, action) => {
+      state.posts = [];
+      state.postStatus = "loading";
     },
-    [fetchTags.pending]: (state) => {
-      state.tags.items = [];
-      state.tags.status = "loading";
+    [fetchPosts.rejected]: (state, action) => {
+      state.posts = [];
+      state.postStatus = "error";
     },
     [fetchTags.fulfilled]: (state, action) => {
-      state.tags.items = action.payload;
-      state.tags.status = "loaded";
+      state.tags = action.payload;
+      state.tagStatus = "loaded";
     },
-    [fetchTags.rejected]: (state) => {
-      state.tags.items = [];
-      state.tags.status = "error";
+    [fetchTags.pending]: (state, action) => {
+      state.tags = [];
+      state.tagStatus = "loading";
+    },
+    [fetchTags.rejected]: (state, action) => {
+      state.tags = [];
+      state.tagStatus = "error";
     },
   },
 });
 
-export const postReducer = postSlice.reducer;
+export const postsReducer = postsSlice.reducer;
+export const { removePost } = postsSlice.actions;
