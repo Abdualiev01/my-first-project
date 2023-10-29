@@ -8,6 +8,7 @@ import {
   ListItemText,
   Skeleton,
 } from "@mui/material";
+
 import TagIcon from "@mui/icons-material/Tag";
 
 export const TagsBlock = ({ items, isLoading = true }) => {
