@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { fetchUserInfo } from "./redux/slices/auth";
 import { CircularProgress, Container } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
+import { AddPost, FullPost, Home } from "./Pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +28,9 @@ function App() {
       <Container maxWidth="lg">
         <Routes>
           <Route element={<Home />} path="/" />
+          <Route element={<AddPost />} path="/posts/create" />
+          <Route element={<AddPost />} path="/posts/:id/edit" />
+          <Route element={<FullPost />} path="/posts/:id" />
         </Routes>
       </Container>
     </>

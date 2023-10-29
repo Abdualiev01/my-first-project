@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, fetchTags } from "../redux/slices/posts";
 import { CommentsBlock, Post, TagsBlock } from "../components";
 
-const Home = () => {
+export const Home = () => {
   const { posts, postStatus, tags, tagStatus } = useSelector(
     (state) => state.posts
   );
@@ -65,5 +65,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;
