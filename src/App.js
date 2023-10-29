@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { fetchUserInfo } from "./redux/slices/auth";
 import { CircularProgress, Container } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import { AddPost, FullPost, Home } from "./Pages";
+import { AddPost, FullPost, Home, Login, Register } from "./Pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +31,8 @@ function App() {
           <Route element={<AddPost />} path="/posts/create" />
           <Route element={<AddPost />} path="/posts/:id/edit" />
           <Route element={<FullPost />} path="/posts/:id" />
+          <Route element={<Login />} path="/login" />
+          <Route element={<Register />} path="/register" />
         </Routes>
       </Container>
     </>
